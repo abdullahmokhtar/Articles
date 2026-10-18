@@ -3,7 +3,7 @@ using Submission.Domain.Entities;
 
 namespace Submission.Persistence.Data;
 
-public class SubmissionDbContext : DbContext
+public class SubmissionDbContext(DbContextOptions<SubmissionDbContext> options) : DbContext(options)
 {
     #region Entities
     public DbSet<Journal> Journals { get; set; }
@@ -12,6 +12,7 @@ public class SubmissionDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SubmissionDbContext).Assembly);
     }
 }

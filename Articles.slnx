@@ -1,8 +1,11 @@
 <Solution>
   <Folder Name="/BuildingBlocks/">
     <Project Path="BuildingBlocks/Articles.Abstractions/Articles.Abstractions.csproj" Id="a0ab74fd-6dcc-41a1-a902-2f06981e89a1" />
+    <Project Path="BuildingBlocks/Blocks.Core/Blocks.Core.csproj" Id="e1618904-ee2e-4d7e-bfbe-f8fe12e63375" />
     <Project Path="BuildingBlocks/Blocks.Domain/Blocks.Domain.csproj" />
     <Project Path="BuildingBlocks/Blocks.EntityFramework/Blocks.EntityFramework.csproj" Id="bf326d5d-1ed9-490a-9c63-85090c92ae5c" />
+    <Project Path="BuildingBlocks/Blocks.Exceptions/Blocks.Exceptions.csproj" Id="7c02af5c-af5e-484f-bb4b-df2281f597ec" />
+    <Project Path="BuildingBlocks/Blocks.MediatR/Blocks.MediatR.csproj" Id="785e183c-94bf-4c39-ba89-d9be1adcbb6e" />
   </Folder>
   <Folder Name="/Services/" />
   <Folder Name="/Services/Submission/">
