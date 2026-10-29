@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Text.Json;
 
 namespace Blocks.EntityFramework;
 
@@ -10,5 +12,18 @@ public static class BuilderExtension
             e => e.ToString(),
             value => (TEnum)Enum.Parse(typeof(TEnum), value)
         );
+    }
+
+    public static PropertyBuilder<T> HasJsonCollectionConversion<T>(this PropertyBuilder<T> builder)
+    {
+        return builder.HasConversion(BuildJsonListConverter<T>());
+    }
+
+    public static ValueConverter<TCollection, string> BuildJsonListConverter<TCollection>()
+    {
+        Func<TCollection, string> serializeFunc = v => JsonSerializer.Serialize(v);
+        Func<string, TCollection> deserializeFunc = v => JsonSerializer.Deserialize<TCollection>(v)!;
+
+        return new ValueConverter<TCollection, string>(v => serializeFunc(v), v => deserializeFunc(v));
     }
 }

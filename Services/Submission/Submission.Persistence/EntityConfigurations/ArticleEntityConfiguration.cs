@@ -6,7 +6,7 @@ using Submission.Domain.Entities;
 
 namespace Submission.Persistence.EntityConfigurations;
 
-internal class ArticleEntityConfiguartion : EntityConfiguration<Article>
+internal class ArticleEntityConfiguration : EntityConfiguration<Article>
 {
     public override void Configure(EntityTypeBuilder<Article> builder)
     {

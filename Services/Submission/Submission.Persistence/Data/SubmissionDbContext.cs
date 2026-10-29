@@ -8,6 +8,9 @@ public class SubmissionDbContext(DbContextOptions<SubmissionDbContext> options) 
     #region Entities
     public DbSet<Journal> Journals { get; set; }
     public DbSet<Article> Articles { get; set; }
+    public DbSet<Person> Persons { get; set; }
+    public DbSet<Author> Authors { get; set; }
+    public DbSet<ArticleActor> ArticleActors { get; set; }
     #endregion Entities
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

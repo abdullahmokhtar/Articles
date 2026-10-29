@@ -8,8 +8,15 @@ public enum UserRoleType
     EOF = 1,
 
     [Description("Author")]
-    Aut = 11,
+    AUT = 11,
 
     [Description("Corresponding Author")]
-    CorAut = 12,
+    CORAUT = 12,
+}
+
+public static class Role
+{
+    public const string EOF = nameof(UserRoleType.EOF);
+    public const string CORAUT = nameof(UserRoleType.CORAUT);
+    public const string AUT = nameof(UserRoleType.AUT);
 }

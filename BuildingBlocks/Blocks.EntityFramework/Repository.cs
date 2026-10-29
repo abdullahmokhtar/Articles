@@ -5,8 +5,8 @@ namespace Blocks.EntityFramework;
 
 public interface IRepository<TEntity> where TEntity : IEntity
 {
-    public Task<TEntity?> FindByIdAsync(int id);
-    public Task<TEntity?> GetByIdAsync(int id);
+    public Task<TEntity?> FindByIdAsync(int id, CancellationToken cancellationToken = default);
+    public Task<TEntity?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
     public Task<TEntity> AddAsync(TEntity entity);
     public TEntity Update(TEntity entity);
     public void Remove(TEntity entity);
@@ -33,7 +33,7 @@ public class Repository<TContext, TEntity>
 
     public virtual async Task<TEntity?> FindByIdAsync(int id, CancellationToken ct = default) => await Query().FirstOrDefaultAsync(x => x.Id == id, ct);
 
-    public virtual async Task<TEntity?> GetByIdAsync(int id) => await Query().FirstOrDefaultAsync(x => x.Id == id);
+    public virtual async Task<TEntity?> GetByIdAsync(int id, CancellationToken cancellationToken = default) => await Query().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
     public virtual async Task<TEntity> AddAsync(TEntity entity) => (await _entity.AddAsync(entity)).Entity;
 

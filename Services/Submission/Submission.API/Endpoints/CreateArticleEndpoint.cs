@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Articles.Abstractions.Enums;
+using Articles.Security;
+using MediatR;
 using Submission.Application.Features.CreateArticle;
 
 namespace Submission.API.Endpoints;
@@ -11,7 +13,7 @@ public static class CreateArticleEndpoint
         {
             var response = await sender.Send(command);
             return Results.Created($"api/articles/{response.Id}", response);
-        }).RequireAuthorization(policy => policy.RequireRole("AUT"))
+        }).RequireRoleAuthorization(Role.AUT)
         .WithName("CreateArticle")
         .WithTags("Articles")
         .Produces(StatusCodes.Status201Created)

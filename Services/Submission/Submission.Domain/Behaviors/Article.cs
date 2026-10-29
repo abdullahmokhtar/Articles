@@ -1,0 +1,23 @@
+﻿using Articles.Abstractions.Enums;
+using Blocks.Domain;
+
+namespace Submission.Domain.Entities;
+
+public partial class Article
+{
+    public void AssignAuthor(Author author, HashSet<ContributionArea> contributionAreas, bool isCorrespondingAuthor)
+    {
+        var role = isCorrespondingAuthor ? UserRoleType.CORAUT : UserRoleType.AUT;
+
+        if (Actors.Any(a => a.PersonId == author.Id && a.Role == role))
+            throw new DomainException($"Author {author.EmailAddress} is already assigned to this article.");
+
+        var articleAuthor = new ArticleAuthor
+        {
+            ContributionAreas = contributionAreas,
+            Person = author,
+            Role = role,
+        };
+        Actors.Add(articleAuthor);
+    }
+}
