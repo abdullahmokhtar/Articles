@@ -10,6 +10,9 @@ public static class Extensions
     public static IRuleBuilder<T, TProperty> NotEmptyWithMessage<T, TProperty>(this IRuleBuilder<T, TProperty> rule, string propertyName)
     => rule.NotEmpty().WithMessage(c => ValidationMessages.NullOrEmptyValue.FormatWith(propertyName));
 
+    public static IRuleBuilder<T, TProperty> NotNullWithMessage<T, TProperty>(this IRuleBuilder<T, TProperty> rule, string propertyName)
+   => rule.NotNull().WithMessage(c => ValidationMessages.NullOrEmptyValue.FormatWith(propertyName));
+
     public static IRuleBuilder<T, string?> MaximumLengthWithMessage<T>(this IRuleBuilder<T, string?> rule, int maxLength, string propertyName)
         => rule.MaximumLength(maxLength).WithMessage(c => ValidationMessages.MaxLengthExceeded.FormatWith(propertyName, maxLength));
 }
