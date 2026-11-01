@@ -1,10 +1,7 @@
-﻿using Blocks.Domain.Enities;
+﻿namespace Submission.Domain.Entities;
 
-namespace Submission.Domain.Entities;
-
-public partial class Journal : IEntity
+public partial class Journal : Entity
 {
-    public int Id { get; init; }
     public string Name { get; set; }
     public string Abreviation { get; set; }
 

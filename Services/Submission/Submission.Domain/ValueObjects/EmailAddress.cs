@@ -1,14 +1,11 @@
 ﻿using Blocks.Core;
+using Blocks.Domain.ValueObjects;
 using System.Net.Mail;
 
 namespace Submission.Domain.ValueObjects;
 
-public class EmailAddress
+public class EmailAddress(string value) : StringValueObject(value)
 {
-    public string Value { get; private set; }
-
-    private EmailAddress(string value) => Value = value;
-
     public static EmailAddress Create(string value)
     {
         Guard.ThrowIfNullOrWhitespace(value);
