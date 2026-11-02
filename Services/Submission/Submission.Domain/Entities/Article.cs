@@ -8,5 +8,9 @@ public partial class Article : Entity
     public ArticleStage Stage { get; internal set; }
     public int JournalId { get; init; }
     public required Journal Journal { get; init; }
+
+    private List<Asset> _assets = new();
+    public IReadOnlyCollection<Asset> Assets => _assets.AsReadOnly();
+
     public List<ArticleActor> Actors { get; set; } = [];
 }
