@@ -9,4 +9,7 @@ public class AssetTypeDefination : EnumEntity<AssetType>
     public required string DefaultFileExtension { get; init; } = default!;
 
     public required FileExtensions AllowedFileExtensions { get; init; }
+    public int MaxAssetCount { get; init; }
+
+    public bool AllowsMultipleFiles => MaxAssetCount > 1;
 }

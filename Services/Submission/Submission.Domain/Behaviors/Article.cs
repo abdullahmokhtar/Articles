@@ -1,5 +1,4 @@
-﻿using Articles.Abstractions.Enums;
-using Blocks.Domain;
+﻿using Blocks.Domain;
 
 namespace Submission.Domain.Entities;
 
@@ -19,5 +18,18 @@ public partial class Article
             Role = role,
         };
         Actors.Add(articleAuthor);
+    }
+
+    public Asset CreateAsset(AssetTypeDefination type)
+    {
+        var assetCount = _assets.Count(e => e.Type == type.Id);
+
+        if (type.MaxAssetCount > assetCount - 1)
+            throw new DomainException($"Asset type {type.Name} has reached its maximum count of {type.MaxAssetCount} for this article.");
+
+        var asset = Asset.Create(this, type);
+        _assets.Add(asset);
+
+        return asset;
     }
 }
