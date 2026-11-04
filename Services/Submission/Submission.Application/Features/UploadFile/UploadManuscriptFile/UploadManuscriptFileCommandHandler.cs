@@ -1,8 +1,9 @@
 ﻿using Blocks.EntityFramework;
+using FileStorage.Contracts;
 
 namespace Submission.Application.Features.UploadFile;
 
-public class UploadManuscriptFileCommandHandler(ArticleRepository articleRepository, AssetTypeDefinationRepository assetTyperepository) : IRequestHandler<UploadManuscriptFileCommand, IdResponse>
+public class UploadManuscriptFileCommandHandler(ArticleRepository articleRepository, AssetTypeDefinationRepository assetTyperepository, IFileService fileService) : IRequestHandler<UploadManuscriptFileCommand, IdResponse>
 {
     public async Task<IdResponse> Handle(UploadManuscriptFileCommand request, CancellationToken cancellationToken)
     {
@@ -18,7 +19,25 @@ public class UploadManuscriptFileCommandHandler(ArticleRepository articleReposit
         if (asset is null)
             asset = article.CreateAsset(assetType);
 
-        await articleRepository.SaveChangesAsync(cancellationToken);
+        var filePath = asset.GenerateStorageFilePath(request.File.FileName);
+
+        var uploadResponse = await fileService.UploadFileAsync(filePath, request.File, overwrite: true, tags: new Dictionary<string, string>
+        {
+            { "entity", nameof(Asset) },
+            { "entityId", asset.Id.ToString() }
+        }, cancellationToken);
+
+        try
+        {
+            asset.CreateFile(uploadResponse, assetType);
+
+            await articleRepository.SaveChangesAsync(cancellationToken);
+        }
+        catch (Exception)
+        {
+            await fileService.TryDeleteFileAsync(uploadResponse.FilePath, cancellationToken);
+            throw;
+        }
 
         return new IdResponse(asset.Id);
     }

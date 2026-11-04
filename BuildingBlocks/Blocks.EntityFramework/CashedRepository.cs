@@ -5,7 +5,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Blocks.EntityFramework;
 
-public abstract class CashedRepository<TDbContext, TEntity, TId>(TDbContext dbContext, IMemoryCache cache)
+public class CashedRepository<TDbContext, TEntity, TId>(TDbContext dbContext, IMemoryCache cache)
     where TDbContext : DbContext
     where TEntity : class, IEntity<TId>, ICashable
     where TId : struct
