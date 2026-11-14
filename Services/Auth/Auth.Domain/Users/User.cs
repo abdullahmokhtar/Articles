@@ -1,10 +1,11 @@
 ﻿using Auth.Domain.Users.Enums;
 using Auth.Domain.Users.ValueObjects;
+using Blocks.Domain.Enities;
 using Microsoft.AspNetCore.Identity;
 
 namespace Auth.Domain.Users;
 
-public class User : IdentityUser<int>
+public class User : IdentityUser<int>, IEntity
 {
     public required string FirstName { get; init; }
     public required string LastName { get; init; }
